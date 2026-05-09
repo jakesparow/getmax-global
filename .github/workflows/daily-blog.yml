@@ -1,4 +1,4 @@
-name: Daily Blog Generator
+name: Daily Blog Generator (ContentPilot)
 
 on:
   schedule:
@@ -29,14 +29,19 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python scripts/generate-blog.py
 
-      - name: Repurpose for social media
+      - name: Distribute to social channels
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
           LINKEDIN_PERSON_ID: ${{ secrets.LINKEDIN_PERSON_ID }}
+          BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
+          BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
         run: python scripts/post-to-social.py
 
-      - name: Commit and push
+      - name: Commit and push new post
         run: |
           git config user.name "Getmax ContentPilot"
           git config user.email "content@getmaxglobal.com"
