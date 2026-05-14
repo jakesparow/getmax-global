@@ -13,13 +13,18 @@ import {
   Video, Megaphone, Activity, Heart, Stethoscope
 } from 'lucide-react'
 import { BlogList, BlogPost } from './pages/Blog'
+import Security from './pages/Security'
+import Hipaa from './pages/Hipaa'
+import Privacy from './pages/Privacy'
+import Terms from './pages/Terms'
+import Pricing from './pages/Pricing'
 
 // ─── Data ──────────────────────────────────────────────
 
 const NAV_LINKS = [
   { label: 'Products', href: '/#products' },
   { label: 'Solutions', href: '/#solutions' },
-  { label: 'Architecture', href: '/#engines' },
+  { label: 'Pricing', href: '/pricing' },
   { label: 'Lab', href: '/#lab' },
   { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/#contact' },
@@ -613,8 +618,8 @@ function Contact() {
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="grid md:grid-cols-3 gap-5">
           {[
             { icon: Mail, label: 'Email Us', value: 'contact@getmaxglobal.com', href: 'mailto:contact@getmaxglobal.com' },
-            { icon: Headphones, label: 'Healthcare RCM', value: 'getmaxsolutions.com', href: 'https://getmaxsolutions.com' },
-            { icon: Building2, label: 'Headquarters', value: 'India & USA', href: null },
+            { icon: Headphones, label: 'Book a Demo', value: 'See it on real data', href: '/demo' },
+            { icon: Building2, label: 'Headquarters', value: 'Chennai, India & USA', href: null },
           ].map((c, i) => (
             <div key={i} className="p-6 glass-card rounded-2xl text-center hover:-translate-y-1 transition-all">
               <div className="w-12 h-12 mx-auto mb-4 bg-purple-500/10 rounded-xl flex items-center justify-center">
@@ -637,19 +642,59 @@ function Contact() {
 // ─── Footer ────────────────────────────────────────────
 
 function Footer() {
+  const colLink = "text-sm text-gray-500 hover:text-gray-200 transition-colors font-medium"
   return (
-    <footer className="py-8 px-6 border-t border-white/[0.06] bg-[#08080d]">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <img src="/logo-mark.png" alt="Getmax" className="h-7 w-7 object-contain" />
-          <span className="text-sm text-gray-500">&copy; {new Date().getFullYear()} Getmax Global. All rights reserved.</span>
+    <footer className="px-6 border-t border-white/[0.06] bg-[#08080d]">
+      <div className="max-w-7xl mx-auto py-14 grid gap-10 md:grid-cols-5">
+        <div className="md:col-span-2">
+          <div className="flex items-center gap-3 mb-4">
+            <img src="/logo-mark.png" alt="Getmax" className="h-8 w-8 object-contain" />
+            <img src="/logo-wordmark-white.png" alt="Getmax" className="h-5 object-contain" />
+          </div>
+          <p className="text-sm text-gray-500 leading-relaxed max-w-sm">
+            AI-native software for healthcare revenue cycle management, voice operations, and
+            modern back-office work.
+          </p>
         </div>
-        <div className="flex items-center gap-6">
-          <Link to="/blog" className="text-sm text-gray-500 hover:text-gray-300 transition-colors font-medium">Blog</Link>
-          <a href="https://app.getmaxglobal.com" className="text-sm text-gray-500 hover:text-gray-300 transition-colors font-medium">Platform</a>
-          <a href="https://getmaxsolutions.com" className="text-sm text-gray-500 hover:text-gray-300 transition-colors font-medium">RCM</a>
-          <a href="mailto:contact@getmaxglobal.com" className="text-sm text-gray-500 hover:text-gray-300 transition-colors font-medium">Contact</a>
+
+        <div>
+          <div className="text-xs font-semibold text-gray-300 uppercase tracking-[0.2em] mb-4">Product</div>
+          <ul className="space-y-3">
+            <li><a href="/#products" className={colLink}>Products</a></li>
+            <li><a href="/#solutions" className={colLink}>Solutions</a></li>
+            <li><Link to="/pricing" className={colLink}>Pricing</Link></li>
+            <li><a href="https://app.getmaxglobal.com" className={colLink}>Platform</a></li>
+          </ul>
         </div>
+
+        <div>
+          <div className="text-xs font-semibold text-gray-300 uppercase tracking-[0.2em] mb-4">Company</div>
+          <ul className="space-y-3">
+            <li><Link to="/blog" className={colLink}>Blog</Link></li>
+            <li><a href="/#lab" className={colLink}>Lab</a></li>
+            <li><a href="/#contact" className={colLink}>Contact</a></li>
+            <li><a href="mailto:contact@getmaxglobal.com" className={colLink}>contact@getmaxglobal.com</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div className="text-xs font-semibold text-gray-300 uppercase tracking-[0.2em] mb-4">Trust</div>
+          <ul className="space-y-3">
+            <li><Link to="/security" className={colLink}>Security</Link></li>
+            <li><Link to="/hipaa" className={colLink}>HIPAA</Link></li>
+            <li><Link to="/privacy" className={colLink}>Privacy</Link></li>
+            <li><Link to="/terms" className={colLink}>Terms</Link></li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto py-5 border-t border-white/[0.04] flex flex-col md:flex-row items-center justify-between gap-3">
+        <span className="text-xs text-gray-600">
+          &copy; {new Date().getFullYear()} Getmax Healthcare Solutions Pvt. Ltd. All rights reserved.
+        </span>
+        <span className="text-xs text-gray-600">
+          Built in Chennai, India &middot; AI-native by design
+        </span>
       </div>
     </footer>
   )
@@ -694,6 +739,11 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/blog" element={<BlogList />} />
         <Route path="/blog/:id" element={<BlogPost />} />
+        <Route path="/security" element={<Security />} />
+        <Route path="/hipaa" element={<Hipaa />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/pricing" element={<Pricing />} />
       </Routes>
       <Footer />
     </BrowserRouter>
