@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Brain, Zap, Shield, Globe, ArrowRight, ChevronDown,
@@ -218,12 +218,15 @@ function Particles({ count = 25 }) {
 function Navbar() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const location = useLocation()
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20)
     window.addEventListener('scroll', handler, { passive: true })
     return () => window.removeEventListener('scroll', handler)
   }, [])
+
+  useEffect(() => { setOpen(false) }, [location.pathname, location.hash])
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -243,7 +246,7 @@ function Navbar() {
               <a key={l.href} href={l.href} className="text-sm text-gray-400 hover:text-white font-medium transition-colors">{l.label}</a>
             )
           ))}
-          <a href="/#contact" className="px-5 py-2.5 bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.1] text-white text-sm font-semibold rounded-full transition-all hover:-translate-y-0.5">
+          <a href="https://app.getmaxglobal.com/signup" target="_blank" rel="noopener" className="px-5 py-2.5 bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.1] text-white text-sm font-semibold rounded-full transition-all hover:-translate-y-0.5">
             Get Started
           </a>
         </div>
@@ -618,7 +621,7 @@ function Contact() {
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="grid md:grid-cols-3 gap-5">
           {[
             { icon: Mail, label: 'Email Us', value: 'contact@getmaxglobal.com', href: 'mailto:contact@getmaxglobal.com' },
-            { icon: Headphones, label: 'Book a Demo', value: 'See it on real data', href: '/demo' },
+            { icon: Headphones, label: 'Book a Demo', value: 'See it on real data', href: 'mailto:sriram@getmaxrcm.com?subject=Getmax%20demo' },
             { icon: Building2, label: 'Headquarters', value: 'Chennai, India & USA', href: null },
           ].map((c, i) => (
             <div key={i} className="p-6 glass-card rounded-2xl text-center hover:-translate-y-1 transition-all">

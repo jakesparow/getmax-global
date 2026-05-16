@@ -27,7 +27,7 @@ const TIERS = [
     price: 'Talk to us',
     period: 'volume-based',
     desc: 'For growing healthcare teams running real revenue cycle ops.',
-    cta: { label: 'Book a demo', href: '/demo' },
+    cta: { label: 'Book a demo', href: 'mailto:sriram@getmaxrcm.com?subject=Getmax%20demo%20-%20Growth' },
     highlight: true,
     features: [
       'Up to 25 users',
@@ -44,7 +44,7 @@ const TIERS = [
     price: 'Talk to us',
     period: 'annual contract',
     desc: 'For RCM organizations, MSOs, and provider groups operating at scale.',
-    cta: { label: 'Book a demo', href: '/demo' },
+    cta: { label: 'Book a demo', href: 'mailto:sriram@getmaxrcm.com?subject=Getmax%20demo%20-%20Enterprise' },
     highlight: false,
     features: [
       'Unlimited users',
@@ -116,11 +116,10 @@ export default function Pricing() {
               </div>
               <div className="text-xs text-gray-500 mb-6 uppercase tracking-[0.15em]">{t.period}</div>
 
-              {t.cta.href.startsWith('http') ? (
+              {(t.cta.href.startsWith('http') || t.cta.href.startsWith('mailto:')) ? (
                 <a
                   href={t.cta.href}
-                  target="_blank"
-                  rel="noopener"
+                  {...(t.cta.href.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {})}
                   className={`block text-center px-5 py-3 font-semibold rounded-full text-sm transition-all mb-6 ${
                     t.highlight
                       ? 'bg-white text-[#0A0A0F] hover:shadow-[0_0_30px_rgba(255,255,255,0.15)]'
@@ -214,9 +213,9 @@ export default function Pricing() {
               Getmax automates.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/demo" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-[#0A0A0F] font-semibold rounded-full transition-all hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:-translate-y-0.5">
+              <a href="mailto:sriram@getmaxrcm.com?subject=Getmax%20demo" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-[#0A0A0F] font-semibold rounded-full transition-all hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:-translate-y-0.5">
                 Book a demo <ArrowRight size={18} />
-              </Link>
+              </a>
               <a href="mailto:contact@getmaxglobal.com" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/[0.04] border border-white/[0.08] text-white font-semibold rounded-full transition-all hover:bg-white/[0.08] hover:-translate-y-0.5">
                 Email sales
               </a>
